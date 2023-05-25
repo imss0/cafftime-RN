@@ -9,4 +9,9 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('/log')
+  getLogs(): string {
+    return 'this is logs';
+  }
 }
