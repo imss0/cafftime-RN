@@ -2,8 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Connection } from 'mongoose';
+import { LogsController } from './logs/logs.controller';
+import { LogService } from './logs/logs.service';
+import { FoodController } from './food/food.controller';
+import { FoodService } from './food/food.service';
 
 @Module({
   imports: [
@@ -16,12 +19,21 @@ import { AppService } from './app.service';
         uri: config.get('DB_URL'),
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        connectionFactory: (connection: Connection) => {
+          if (connection.readyState === 1) {
+            console.log('DB connected');
+          }
+          connection.on('disconnected', () => {
+            console.log('DB disconnected');
+          });
+
+          return connection;
+        },
       }),
-      
       inject: [ConfigService],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [LogsController, FoodController],
+  providers: [LogService, FoodService],
 })
 export class AppModule {}
