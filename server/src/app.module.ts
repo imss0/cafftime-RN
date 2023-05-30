@@ -4,8 +4,8 @@ import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { LogsController } from './logs/logs.controller';
-import { LogService } from './logs/logs.service';
 import { FoodController } from './food/food.controller';
+import { LogsService } from './logs/logs.service';
 import { FoodService } from './food/food.service';
 
 @Module({
@@ -34,6 +34,6 @@ import { FoodService } from './food/food.service';
     }),
   ],
   controllers: [LogsController, FoodController],
-  providers: [LogService, FoodService],
+  providers: [LogsService, FoodService],
 })
 export class AppModule {}
