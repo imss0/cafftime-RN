@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import styled from "styled-components/native";
 import Daily from "../screens/Daily";
 import Logs from "../screens/Logs";
 import Settings from "../screens/Settings";
